@@ -1,3 +1,4 @@
+#if 0
 /*
  * Fadecandy DFU Bootloader
  * 
@@ -67,9 +68,13 @@ static uint32_t ram_mode; // Set this to non-zero to load data into RAM.
 static uint32_t dfu_target_address;
 
 uint32_t dfu_origin_addr(void) {
+#ifdef SPIFLASH_BASE
     if (ram_mode)
         return ram_mode;
     return CONFIG_RESCUE_IMAGE_OFFSET + SPIFLASH_BASE;
+#else
+    return ram_mode;    
+#endif
 }
 
 static void set_state(dfu_state_t new_state, dfu_status_t new_status) {
@@ -329,3 +334,4 @@ bool dfu_abort(void)
     set_state(dfuIDLE, OK);
     return true;
 }
+#endif

@@ -1,0 +1,4 @@
+read_verilog /media/vsuarez/elocaldata/SCRATCH/foboot/hw/rtl/VexRiscv_Fomu.v
+read_verilog /media/vsuarez/elocaldata/SCRATCH/foboot/hw/build/gateware/top.v
+attrmap -tocase keep -imap keep="true" keep=1 -imap keep="false" keep=0 -remove keep=0
+synth_ice40 -json top.json -top top -relut -abc2 -dffe_min_ce_use 4 -relut

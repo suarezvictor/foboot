@@ -11,6 +11,10 @@
 
 #include "spi.h"
 
+//void lxspi_bitbang_write(uint32_t x) {}
+//void lxspi_bitbang_en_write(uint32_t x) {}
+//unsigned lxspi_miso_read() { return 0; }
+
 enum pin {
 	PIN_MOSI = 0,
 	PIN_CLK = 1,

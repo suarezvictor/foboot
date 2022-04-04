@@ -1,0 +1,201 @@
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
+| Date         : Thu Mar 24 16:13:35 2022
+| Host         : maguimini running 64-bit Debian GNU/Linux 11 (bullseye)
+| Command      : report_control_sets -verbose -file top_control_sets.rpt
+| Design       : top
+| Device       : xc7a35ti
+------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |   123 |
+|    Minimum number of control sets                        |   123 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |   211 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |   123 |
+| >= 0 to < 4        |     5 |
+| >= 4 to < 6        |    20 |
+| >= 6 to < 8        |    17 |
+| >= 8 to < 10       |    37 |
+| >= 10 to < 12      |     0 |
+| >= 12 to < 14      |     2 |
+| >= 14 to < 16      |     0 |
+| >= 16              |    42 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |             225 |           88 |
+| No           | No                    | Yes                    |               6 |            3 |
+| No           | Yes                   | No                     |             281 |          111 |
+| Yes          | No                    | No                     |             590 |          193 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |             647 |          205 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++--------------+--------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------+------------------+----------------+
+| Clock Signal |                                     Enable Signal                                    |                                  Set/Reset Signal                                 | Slice Load Count | Bel Load Count |
++--------------+--------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------+------------------+----------------+
+|  sys_clk     | serial_tx_i_1_n_0                                                                    | sys_rst                                                                           |                1 |              1 |
+|  usb_12_clk  |                                                                                      | FDPE_i_1_n_0                                                                      |                1 |              2 |
+|  usb_48_clk  |                                                                                      | FDPE_i_1_n_0                                                                      |                1 |              2 |
+|  sys_clk     |                                                                                      | FDPE_i_1_n_0                                                                      |                1 |              2 |
+|  sys_clk     | VexRiscv/_zz_150_                                                                    | VexRiscv/IBusCachedPlugin_cache/reset0                                            |                1 |              3 |
+|  usb_48_clk  | soc_usb_core_rx_flagsFifo_wrport_we__0                                               |                                                                                   |                1 |              4 |
+|  sys_clk     | soc_uart_tx_fifo_syncfifo_re                                                         | sys_rst                                                                           |                1 |              4 |
+|  usb_12_clk  | soc_usb_core_txstate_pid_txpacketsend_next_value_ce1                                 | usb_12_rst                                                                        |                2 |              4 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/soc_uart_rx_fifo_rdport_re                           | sys_rst                                                                           |                1 |              4 |
+|  usb_12_clk  | soc_usb_core_o_pid[3]_i_1_n_0                                                        | usb_12_rst                                                                        |                2 |              4 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/lineLoader_address_reg[12]_2                         | sys_rst                                                                           |                1 |              4 |
+|  usb_12_clk  | vns_triendpointinterface_txpacketsend_state[3]_i_1_n_0                               | usb_12_rst                                                                        |                2 |              4 |
+|  sys_clk     | VexRiscv/CsrPlugin_mstatus_MPP                                                       | VexRiscv/IBusCachedPlugin_cache/reset0                                            |                2 |              4 |
+|  usb_12_clk  | soc_outhandler_epno                                                                  | usb_12_rst                                                                        |                1 |              4 |
+|  usb_12_clk  | soc_usb_core_o_endp_packetheaderdecode_next_value_ce2                                | usb_12_rst                                                                        |                1 |              4 |
+|  sys_clk     | soc_sink_ready1127_out                                                               | soc_sink_ready1                                                                   |                1 |              4 |
+|  sys_clk     | soc_rx_bitcount                                                                      | soc_rx_bitcount[3]_i_1_n_0                                                        |                2 |              4 |
+|  sys_clk     | soc_uart_rx_fifo_wrport_we__0                                                        | sys_rst                                                                           |                1 |              4 |
+|  usb_12_clk  | soc_setuphandler_data_recv_put                                                       | soc_setuphandler_setuphandlerinner_readable                                       |                1 |              4 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/_zz_167_                                             |                                                                                   |                2 |              4 |
+|  usb_12_clk  | soc_setuphandler_setuphandlerinner_wrport_we__0                                      | soc_setuphandler_setuphandlerinner_readable                                       |                1 |              4 |
+|  usb_12_clk  | VexRiscv/IBusCachedPlugin_cache/soc_setuphandler_setuphandlerinner_level0_reg[1][0]  | soc_setuphandler_setuphandlerinner_readable                                       |                1 |              4 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/soc_source_valid_reg[0]                              | sys_rst                                                                           |                2 |              5 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/soc_uart_tx_fifo_readable_reg[0]                     | sys_rst                                                                           |                2 |              5 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/_zz_176_                                             |                                                                                   |                2 |              5 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/soc_fifo_rdport_re                                   | sys_rst                                                                           |                1 |              6 |
+|  sys_clk     | soc_fifo_wrport_we__0                                                                | sys_rst                                                                           |                1 |              6 |
+|  usb_12_clk  | soc_inhandler_syncfifobuffered_syncfifo_re                                           | soc_inhandler_syncfifobuffered_level0                                             |                2 |              6 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/dBus_cmd_halfPipe_regs_payload_address_reg[6]_0[0]   | sys_rst                                                                           |                3 |              6 |
+|  usb_12_clk  | soc_inhandler_syncfifobuffered_wrport_we__0                                          | soc_inhandler_syncfifobuffered_level0                                             |                1 |              6 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/_zz_12_                                              | VexRiscv/IBusCachedPlugin_cache/_zz_13_                                           |                2 |              7 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/soc_in_reg_re_reg[0]                                 | sys_rst                                                                           |                3 |              7 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/soc_outhandler_ctrl_storage[6]_i_2_0[0]              | sys_rst                                                                           |                2 |              7 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/dBus_cmd_halfPipe_regs_payload_address_reg[4][0]     | sys_rst                                                                           |                3 |              7 |
+|  usb_48_clk  | soc_usb_core_rx_reset_counter                                                        | soc_usb_core_rx_reset_counter[6]_i_1_n_0                                          |                2 |              7 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/lineLoader_address_reg[5]_0[0]                       | soc_csrstorage_storage[6]_i_1_n_0                                                 |                1 |              7 |
+|  usb_12_clk  | soc_usb_core_addr_next_value_ce                                                      | soc_usb_core_addr                                                                 |                2 |              7 |
+|  usb_12_clk  | soc_outhandler_syncfifobuffered_wrport_we                                            | soc_outhandler_syncfifobuffered_level0                                            |                2 |              7 |
+|  usb_12_clk  | VexRiscv/IBusCachedPlugin_cache/soc_setuphandler_setuphandlerinner_readable_reg[0]   | soc_setuphandler_setuphandlerinner_readable                                       |                1 |              7 |
+|  usb_12_clk  | soc_inhandler_syncfifobuffered_level0[6]_i_2_n_0                                     | soc_inhandler_syncfifobuffered_level0                                             |                3 |              7 |
+|  usb_12_clk  | VexRiscv/IBusCachedPlugin_cache/soc_outhandler_syncfifobuffered_rdport_re            | soc_outhandler_syncfifobuffered_level0                                            |                2 |              7 |
+|  usb_12_clk  | VexRiscv/IBusCachedPlugin_cache/soc_outhandler_syncfifobuffered_readable_reg[0]      | soc_outhandler_syncfifobuffered_level0                                            |                3 |              7 |
+|  sys_clk     | soc_source_payload_data[7]_i_1_n_0                                                   |                                                                                   |                1 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/E[2]                                                 | sys_rst                                                                           |                1 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/_zz_149__reg[1]_0[0]                                 | sys_rst                                                                           |                3 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/_zz_149__reg[0][2]                                   | sys_rst                                                                           |                2 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/_zz_149__reg[1][3]                                   | sys_rst                                                                           |                2 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/storage_reg_0_15_0_5_i_2_0[3]                        | sys_rst                                                                           |                2 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/_zz_149__reg[1][1]                                   | sys_rst                                                                           |                1 |              8 |
+|  usb_12_clk  | soc_inhandler_syncfifobuffered_syncfifo_re                                           |                                                                                   |                3 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/soc_uart_rx_fifo_rdport_re                           |                                                                                   |                2 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/storage_reg_0_15_0_5_i_2_0[1]                        | sys_rst                                                                           |                4 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/soc_fifo_rdport_re                                   |                                                                                   |                3 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/_zz_149__reg[1][2]                                   | sys_rst                                                                           |                2 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/_zz_149__reg[0][0]                                   | sys_rst                                                                           |                2 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/_zz_149__reg[1][0]                                   | sys_rst                                                                           |                5 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/_zz_149__reg[0][3]                                   | sys_rst                                                                           |                2 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/storage_reg_0_15_0_5_i_2_0[2]                        | sys_rst                                                                           |                3 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/storage_reg_0_15_0_5_i_2_0[0]                        | sys_rst                                                                           |                2 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/_zz_149__reg[0][1]                                   | sys_rst                                                                           |                2 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/_zz_149__reg[2][0]                                   | sys_rst                                                                           |                3 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/E[3]                                                 | sys_rst                                                                           |                1 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/E[0]                                                 | sys_rst                                                                           |                2 |              8 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/E[1]                                                 | sys_rst                                                                           |                3 |              8 |
+|  usb_12_clk  | soc_usb_core_tx_sync_pulse_txpipeline_next_value_ce0                                 | usb_12_rst                                                                        |                1 |              8 |
+|  usb_12_clk  | soc_usb_core_start                                                                   | soc_usb_core_response_pid                                                         |                2 |              8 |
+|  sys_clk     |                                                                                      | VexRiscv/IBusCachedPlugin_cache/dBus_cmd_halfPipe_regs_payload_address_reg[15][0] |                3 |              8 |
+|  sys_clk     |                                                                                      | VexRiscv/IBusCachedPlugin_cache/lineLoader_address_reg[13]_0[0]                   |                4 |              8 |
+|  sys_clk     |                                                                                      | VexRiscv/IBusCachedPlugin_cache/lineLoader_address_reg[12]_1[0]                   |                3 |              8 |
+|  sys_clk     |                                                                                      | VexRiscv/IBusCachedPlugin_cache/vns_wishbone2csr_state_reg                        |                7 |              8 |
+|  usb_12_clk  | soc_usb_core_endp4_packetheaderdecode_next_value_ce1                                 | usb_12_rst                                                                        |                3 |              8 |
+|  sys_clk     |                                                                                      | VexRiscv/IBusCachedPlugin_cache/vns_count_reg_14_sn_1                             |                2 |              8 |
+|  usb_12_clk  | VexRiscv/IBusCachedPlugin_cache/soc_setuphandler_setuphandlerinner_readable_reg[0]   |                                                                                   |                2 |              8 |
+|  sys_clk     |                                                                                      | VexRiscv/IBusCachedPlugin_cache/lineLoader_address_reg[12]_0                      |                5 |              8 |
+|  sys_clk     |                                                                                      | VexRiscv/IBusCachedPlugin_cache/SR[0]                                             |                4 |              8 |
+|  sys_clk     | soc_uart_tx_fifo_syncfifo_re                                                         |                                                                                   |                2 |              8 |
+|  sys_clk     | soc_rx_reg                                                                           |                                                                                   |                1 |              8 |
+|  sys_clk     | soc_tx_reg[7]_i_1_n_0                                                                |                                                                                   |                2 |              8 |
+|  usb_48_clk  | p_54_in                                                                              | soc_usb_core_rx_shifter_shift_reg[8]_i_1_n_0                                      |                2 |              9 |
+|  usb_12_clk  | soc_inhandler_syncfifobuffered_wrport_we__0                                          |                                                                                   |                3 |             12 |
+|  sys_clk     | soc_fifo_wrport_we__0                                                                |                                                                                   |                3 |             12 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/lineLoader_address_reg[12]_2                         |                                                                                   |                2 |             16 |
+|  usb_12_clk  | soc_outhandler_stall_status[15]_i_1_n_0                                              | soc_outhandler_syncfifobuffered_level0                                            |                5 |             16 |
+|  usb_12_clk  | soc_inhandler_stall_status[15]_i_2_n_0                                               | soc_inhandler_transmitted                                                         |                6 |             16 |
+|  usb_48_clk  | soc_usb_core_rx_payloadFifo_wrport_we__0                                             |                                                                                   |                2 |             16 |
+|  sys_clk     | soc_uart_rx_fifo_wrport_we__0                                                        |                                                                                   |                2 |             16 |
+|  usb_12_clk  | soc_setuphandler_setuphandlerinner_wrport_we__0                                      |                                                                                   |                2 |             16 |
+|  usb_12_clk  | soc_inhandler_dtbs[15]_i_1_n_0                                                       | soc_inhandler_transmitted                                                         |                5 |             16 |
+|  usb_12_clk  | soc_outhandler_enable_status[15]_i_1_n_0                                             | soc_outhandler_syncfifobuffered_level0                                            |                5 |             16 |
+|  usb_12_clk  | vns_triendpointinterface_fsm_next_state1                                             | soc_usb_core_tx_shifter_shifter                                                   |                5 |             16 |
+|  usb_12_clk  | soc_usb_core_txstate_i_data_strobe                                                   | soc_usb_core_txstate_crc_cur[15]_i_1_n_0                                          |                5 |             16 |
+|  sys_clk     | VexRiscv/MmuPlugin_ports_0_cache_1_virtualAddress_0                                  | VexRiscv/MmuPlugin_ports_0_cache_1_physicalAddress_0[9]_i_1_n_0                   |                5 |             20 |
+|  sys_clk     | VexRiscv/MmuPlugin_dBusAccess_rsp_valid                                              | VexRiscv/MmuPlugin_shared_pteBuffer_PPN0[9]_i_1_n_0                               |                4 |             20 |
+|  sys_clk     |                                                                                      | VexRiscv/IBusCachedPlugin_cache/FDPE_1                                            |                5 |             20 |
+|  sys_clk     | VexRiscv/MmuPlugin_satp_ppn                                                          |                                                                                   |                8 |             20 |
+|  sys_clk     | VexRiscv/MmuPlugin_ports_0_cache_0_valid31_out                                       | VexRiscv/MmuPlugin_ports_0_cache_0_physicalAddress_0[9]_i_1_n_0                   |                5 |             20 |
+|  sys_clk     | VexRiscv/MmuPlugin_shared_vpn_0[9]_i_1_n_0                                           |                                                                                   |                6 |             21 |
+|  sys_clk     | VexRiscv/MmuPlugin_ports_0_cache_0_valid31_out                                       |                                                                                   |                7 |             22 |
+|  sys_clk     | VexRiscv/MmuPlugin_ports_0_cache_1_virtualAddress_0                                  |                                                                                   |                8 |             22 |
+|  sys_clk     |                                                                                      | VexRiscv/iBusWishbone_DAT_MISO_regNext[31]_i_1_n_0                                |                4 |             24 |
+|  usb_48_clk  |                                                                                      | usb_48_rst                                                                        |                8 |             25 |
+|  sys_clk     |                                                                                      | VexRiscv/IBusCachedPlugin_cache/reset0                                            |               14 |             26 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/lineLoader_address[31]_i_1_n_0                       |                                                                                   |                8 |             27 |
+|  usb_12_clk  |                                                                                      | usb_12_rst                                                                        |               12 |             28 |
+|  usb_12_clk  |                                                                                      |                                                                                   |               14 |             28 |
+|  sys_clk     | VexRiscv/decode_to_execute_PC0                                                       |                                                                                   |                8 |             30 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/IBusCachedPlugin_injector_decodeInput_ready          |                                                                                   |                8 |             30 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/IBusCachedPlugin_fetchPc_booted_reg                  | VexRiscv/IBusCachedPlugin_fetchPc_pcReg[31]_i_1_n_0                               |               17 |             30 |
+|  usb_48_clk  |                                                                                      |                                                                                   |                9 |             30 |
+|  sys_clk     | VexRiscv/CsrPlugin_mtvec_base                                                        |                                                                                   |               10 |             30 |
+|  sys_clk     | VexRiscv/CsrPlugin_mepc                                                              |                                                                                   |               15 |             32 |
+|  sys_clk     | soc_soccontroller_bus_errors                                                         | sys_rst                                                                           |                8 |             32 |
+|  sys_clk     | VexRiscv/_zz_147_                                                                    | VexRiscv/IBusCachedPlugin_cache/reset0                                            |               18 |             32 |
+|  sys_clk     |                                                                                      | p_38_in                                                                           |                8 |             32 |
+|  sys_clk     | VexRiscv/CsrPlugin_mscratch                                                          |                                                                                   |               11 |             32 |
+|  sys_clk     | soc_timer_update_value_re                                                            | sys_rst                                                                           |                7 |             32 |
+|  sys_clk     | VexRiscv/CsrPlugin_hadException                                                      |                                                                                   |                9 |             32 |
+|  sys_clk     | VexRiscv/IBusCachedPlugin_cache/CsrPlugin_exceptionPortCtrl_exceptionContext_badAddr |                                                                                   |               17 |             34 |
+|  sys_clk     | VexRiscv/p_16_in                                                                     |                                                                                   |               15 |             54 |
+|  sys_clk     | VexRiscv/p_55_in                                                                     |                                                                                   |               16 |             64 |
+|  sys_clk     | VexRiscv/_zz_198_                                                                    |                                                                                   |               27 |             67 |
+|  sys_clk     |                                                                                      | sys_rst                                                                           |               32 |             70 |
+|  sys_clk     |                                                                                      |                                                                                   |               65 |            167 |
++--------------+--------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------+------------------+----------------+
+
+

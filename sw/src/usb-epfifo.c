@@ -7,10 +7,10 @@
 
 #ifdef CSR_USB_EP_0_OUT_EV_PENDING_ADDR
 
-#define EP0OUT_BUFFERS 8
+#define EP0OUT_BUFFERS 4
 __attribute__((aligned(4)))
 static uint8_t volatile usb_ep0out_buffer_len[EP0OUT_BUFFERS];
-static uint8_t volatile usb_ep0out_buffer[EP0OUT_BUFFERS][128];
+static uint8_t volatile usb_ep0out_buffer[EP0OUT_BUFFERS][256];
 static uint8_t volatile usb_ep0out_last_tok[EP0OUT_BUFFERS];
 static volatile uint8_t usb_ep0out_wr_ptr;
 static volatile uint8_t usb_ep0out_rd_ptr;
@@ -24,6 +24,18 @@ static int next_packet_is_empty;
 
 static int have_new_address;
 static uint8_t new_address;
+/* The state machine states of a control pipe */
+enum CONTROL_STATE
+{
+    WAIT_SETUP,
+    IN_SETUP,
+    IN_DATA,
+    OUT_DATA,
+    LAST_IN_DATA,
+    WAIT_STATUS_IN,
+    WAIT_STATUS_OUT,
+    STALLED,
+} control_state;
 
 // Note that our PIDs are only bits 2 and 3 of the token,
 // since all other bits are effectively redundant at this point.
@@ -71,8 +83,17 @@ void usb_connect(void) {
     usb_ep_0_out_ev_enable_write(USB_EV_PACKET | USB_EV_ERROR);
     usb_ep_0_in_ev_enable_write(USB_EV_PACKET | USB_EV_ERROR);
 
+    usb_ep_1_in_ev_pending_write(usb_ep_1_in_ev_enable_read());
+    usb_ep_1_in_ev_enable_write(USB_EV_PACKET | USB_EV_ERROR);
+
+    usb_ep_2_out_ev_pending_write(usb_ep_2_out_ev_enable_read());
+    usb_ep_2_in_ev_pending_write(usb_ep_2_in_ev_pending_read());
+    usb_ep_2_out_ev_enable_write(USB_EV_PACKET | USB_EV_ERROR);
+    usb_ep_2_in_ev_enable_write(USB_EV_PACKET | USB_EV_ERROR);
+
     // Accept incoming data by default.
     usb_ep_0_out_respond_write(EPF_ACK);
+    usb_ep_2_out_respond_write(EPF_ACK);
 
     // Reject outgoing data, since we have none to give yet.
     usb_ep_0_in_respond_write(EPF_NAK);
@@ -158,22 +179,23 @@ void usb_wait_for_send_done(void) {
 }
 
 void usb_isr(void) {
-    uint8_t ep0o_pending = usb_ep_0_out_ev_pending_read();
-    uint8_t ep0i_pending = usb_ep_0_in_ev_pending_read();
+    uint8_t ep0out_pending = usb_ep_0_out_ev_pending_read();
+    uint8_t ep0in_pending = usb_ep_0_in_ev_pending_read();
+    uint8_t ep1in_pending = usb_ep_1_in_ev_pending_read();
+    uint8_t ep2in_pending = usb_ep_2_in_ev_pending_read();
+    uint8_t ep2out_pending = usb_ep_2_out_ev_pending_read();
 
     // We got an OUT or a SETUP packet.  Copy it to usb_ep0out_buffer
     // and clear the "pending" bit.
-    if (ep0o_pending) {
+    if (ep0out_pending) {
         uint8_t last_tok = usb_ep_0_out_last_tok_read();
         
         int byte_count = 0;
         usb_ep0out_last_tok[usb_ep0out_wr_ptr] = last_tok;
         volatile uint8_t * obuf = usb_ep0out_buffer[usb_ep0out_wr_ptr];
-        if (!usb_ep_0_out_obuf_empty_read()) {
-            while (!usb_ep_0_out_obuf_empty_read()) {
-                obuf[byte_count++] = usb_ep_0_out_obuf_head_read();
-                usb_ep_0_out_obuf_head_write(0);
-            }
+        while (!usb_ep_0_out_obuf_empty_read()) {
+            obuf[byte_count++] = usb_ep_0_out_obuf_head_read();
+            usb_ep_0_out_obuf_head_write(0);
         }
 
         if (byte_count >= 2)
@@ -185,22 +207,51 @@ void usb_isr(void) {
             data_offset = 0;
             current_length = 0;
             current_data = NULL;
+            control_state = IN_SETUP;
         }
-
-        usb_ep_0_out_ev_pending_write(ep0o_pending);
+        usb_ep_0_out_ev_pending_write(ep0out_pending);
         usb_ep_0_out_respond_write(EPF_ACK);
     }
 
     // We just got an "IN" token.  Send data if we have it.
-    if (ep0i_pending) {
+    if (ep0in_pending) {
         usb_ep_0_in_respond_write(EPF_NAK);
-        usb_ep_0_in_ev_pending_write(ep0i_pending);
+        usb_ep_0_in_ev_pending_write(ep0in_pending);
         if (have_new_address) {
             have_new_address = 0;
             usb_address_write(new_address);
         }
     }
-    
+
+    if (ep1in_pending) {
+        usb_ep_1_in_respond_write(EPF_NAK);
+        usb_ep_1_in_ev_pending_write(ep1in_pending);
+    }
+
+    if (ep2in_pending) {
+        usb_ep_2_in_respond_write(EPF_NAK);
+        usb_ep_2_in_ev_pending_write(ep2in_pending);
+    }
+
+    if (ep2out_pending) {
+        static uint8_t buffer[66];
+        int sz = 0;
+        while (!usb_ep_2_out_obuf_empty_read()) {
+            if (sz < (int)sizeof(buffer))
+                buffer[sz++] = usb_ep_2_out_obuf_head_read() + 1;
+            usb_ep_2_out_obuf_head_write(0);
+        }
+        if (sz > 2) {
+            int y;
+            for (y = 0; y < (sz - 2); y++)
+                usb_ep_2_in_ibuf_head_write(buffer[y]);
+            usb_ep_2_in_respond_write(EPF_ACK);
+        }
+
+        usb_ep_2_out_respond_write(EPF_ACK);
+        usb_ep_2_out_ev_pending_write(ep2out_pending);
+    }
+
     return;
 }
 
@@ -211,6 +262,7 @@ void usb_ack_in(void) {
 }
 
 void usb_ack_out(void) {
+    // usb_ep_0_out_dtb_write(1);
     while (usb_ep_0_out_respond_read() == EPF_ACK)
         ;
     usb_ep_0_out_respond_write(EPF_ACK);
@@ -266,6 +318,7 @@ void usb_poll(void) {
         }
     }
 
+    // If there's more data to send, queue some more data.
     process_tx();
 }
 

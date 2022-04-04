@@ -10,7 +10,7 @@
 
 struct ff_spi *spi;
 
-__attribute__((section(".ramtext")))
+__attribute__((section(".sram")))
 void isr(void)
 {
     unsigned int irqs;
@@ -21,28 +21,42 @@ void isr(void)
         usb_isr();
 }
 
-__attribute__((section(".ramtext")))
+__attribute__((section(".sram")))
 static void init(void)
 {
     irq_setmask(0);
     irq_setie(1);
+#if 0//def CSR_UART_BASE
+    uart_init();
+#else
     usb_init();
+#endif
+/*
     time_init();
-    rgb_init();
+    rgb_init();*/
 }
 
-__attribute__((section(".ramtext")))
+
+
+__attribute__((section(".sram")))
 int main(int argc, char **argv)
 {
     (void)argc;
     (void)argv;
 
     init();
-
+#if 0//def CSR_UART_BASE    
+    while(1)
+    {
+      uart_write('A');
+      uart_write('B');
+    }
+#else
     usb_connect();
     while (1)
     {
         usb_poll();
     }
+#endif
     return 0;
 }

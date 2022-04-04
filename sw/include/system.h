@@ -59,7 +59,7 @@ static inline void mtspr(unsigned long add, unsigned long val)
 #include <generated/csr.h>
 
 __attribute__((noreturn)) void reboot(void);
-
+/*
 // Forward-define this function, because it's defined inside `csr.h`,
 // which includes this file near the top.
 static inline void reboot_ctrl_write(uint8_t v);
@@ -68,4 +68,5 @@ __attribute__((noreturn)) static inline void warmboot_to_image(uint8_t image_ind
 	reboot_ctrl_write(0xac | (image_index & 3) << 0);
 	while (1);
 }
+*/
 #endif /* __SYSTEM_H */

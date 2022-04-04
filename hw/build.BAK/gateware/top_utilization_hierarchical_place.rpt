@@ -1,0 +1,32 @@
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.2 (lin64) Build 2708876 Wed Nov  6 21:39:14 MST 2019
+| Date         : Thu Mar 24 16:13:34 2022
+| Host         : maguimini running 64-bit Debian GNU/Linux 11 (bullseye)
+| Command      : report_utilization -hierarchical -file top_utilization_hierarchical_place.rpt
+| Design       : top
+| Device       : 7a35ticsg324-1L
+| Design State : Fully Placed
+-----------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++----------------------------+------------------+------------+------------+---------+------+------+--------+--------+--------------+
+|          Instance          |      Module      | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP48 Blocks |
++----------------------------+------------------+------------+------------+---------+------+------+--------+--------+--------------+
+| top                        |            (top) |       2134 |       2076 |      58 |    0 | 1749 |      2 |      6 |            0 |
+|   (top)                    |            (top) |        713 |        655 |      58 |    0 |  901 |      2 |      2 |            0 |
+|   VexRiscv                 |         VexRiscv |       1422 |       1422 |       0 |    0 |  848 |      0 |      4 |            0 |
+|     (VexRiscv)             |         VexRiscv |        800 |        800 |       0 |    0 |  807 |      0 |      2 |            0 |
+|     IBusCachedPlugin_cache | InstructionCache |        639 |        639 |       0 |    0 |   41 |      0 |      2 |            0 |
++----------------------------+------------------+------------+------------+---------+------+------+--------+--------+--------------+
+* Note: The sum of lower-level cells may be larger than their parent cells total, due to cross-hierarchy LUT combining
+
+

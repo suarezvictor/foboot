@@ -37,11 +37,12 @@ static enum {
 } rgb_mode;
 
 static void rgb_write(uint8_t value, uint8_t addr) {
-    rgb_addr_write(addr);
-    rgb_dat_write(value);
+    //rgb_addr_write(addr);
+    //rgb_dat_write(value);
 }
 
 void rgb_init(void) {
+/*
     // Turn on the RGB block and current enable, as well as enabling led control
     rgb_ctrl_write((1 << 0) | (1 << 1) | (1 << 2));
 
@@ -52,7 +53,7 @@ void rgb_init(void) {
     // Set clock register to 12 MHz / 64 kHz - 1
     rgb_write((12000000/64000)-1, LEDDBR);
 
-    rgb_mode_idle();
+    rgb_mode_idle(); */
 }
 
 static void rgb_switch_mode(uint8_t mode,
@@ -73,17 +74,17 @@ static void rgb_switch_mode(uint8_t mode,
 }
 
 void rgb_mode_idle(void) {
-    rgb_switch_mode(IDLE, 12, 14, 2, 3, 0x00/4, 0xe1/4, 0x4a/4);
+    //rgb_switch_mode(IDLE, 12, 14, 2, 3, 0x00/4, 0xe1/4, 0x4a/4);
 }
 
 void rgb_mode_writing(void) {
-    rgb_switch_mode(WRITING, 1, 2, 1, 3, 0x00/4, 0x51/4, 0x7a/4);
+    //rgb_switch_mode(WRITING, 1, 2, 1, 3, 0x00/4, 0x51/4, 0x7a/4);
 }
 
 void rgb_mode_error(void) {
-    rgb_switch_mode(ERROR, 3, 3, 2, 3, 0xf0/4, 0x01/4, 0x0a/4);
+    //rgb_switch_mode(ERROR, 3, 3, 2, 3, 0xf0/4, 0x01/4, 0x0a/4);
 }
 
 void rgb_mode_done(void) {
-    rgb_switch_mode(DONE, 8, 8, 2, 3, 0x14/4, 0x44/4, 0xff/4);
+    //rgb_switch_mode(DONE, 8, 8, 2, 3, 0x14/4, 0x44/4, 0xff/4);
 }

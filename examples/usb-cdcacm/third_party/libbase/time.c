@@ -1,6 +1,7 @@
 #include <generated/csr.h>
 #include <time.h>
 
+#ifdef SYSTEM_CLOCK_FREQUENCY
 void time_init(void)
 {
 	int t;
@@ -31,3 +32,4 @@ int elapsed(int *last_event, int period)
 	} else
 		return 0;
 }
+#endif

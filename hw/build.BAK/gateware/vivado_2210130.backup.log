@@ -1,0 +1,29 @@
+#-----------------------------------------------------------
+# Vivado v2019.2 (64-bit)
+# SW Build 2708876 on Wed Nov  6 21:39:14 MST 2019
+# IP Build 2700528 on Thu Nov  7 00:09:20 MST 2019
+# Start of session at: Thu Mar 24 14:43:37 2022
+# Process ID: 2210130
+# Current directory: /media/vsuarez/elocaldata/SCRATCH/foboot/hw/build/gateware
+# Command line: vivado -mode batch -source top.tcl
+# Log file: /media/vsuarez/elocaldata/SCRATCH/foboot/hw/build/gateware/vivado.log
+# Journal file: /media/vsuarez/elocaldata/SCRATCH/foboot/hw/build/gateware/vivado.jou
+#-----------------------------------------------------------
+source top.tcl
+# create_project -force -name top -part xc7a35ticsg324-1L
+# set_msg_config -id {Common 17-55} -new_severity {Warning}
+# read_verilog {/media/vsuarez/elocaldata/SCRATCH/foboot/hw/rtl/VexRiscv_Fomu_Debug.v}
+# read_verilog {/media/vsuarez/elocaldata/SCRATCH/foboot/hw/build/gateware/top.v}
+# read_xdc top.xdc
+# set_property PROCESSING_ORDER EARLY [get_files top.xdc]
+# synth_design -directive default -top top -part xc7a35ticsg324-1L
+Command: synth_design -directive default -top top -part xc7a35ticsg324-1L
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35ti'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35ti'
+INFO: [Common 17-83] Releasing license: Synthesis
+2 Infos, 0 Warnings, 0 Critical Warnings and 1 Errors encountered.
+synth_design failed
+INFO: [Common 17-344] 'synth_design' was cancelled
+INFO: [Common 17-344] 'source' was cancelled
+INFO: [Common 17-206] Exiting Vivado at Thu Mar 24 14:43:44 2022...

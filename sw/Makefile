@@ -23,10 +23,14 @@ endif
 
 ifeq ($(LITEX),1)
 BASE_DIR   := ../../../../sw
-LDSCRIPT   := $(BASE_DIR)/ld/linker.ld
-LD_DIR     := ../include/generated
-ADD_CFLAGS := -I../include -I$(BASE_DIR)/include
-ADD_LFLAGS := 
+#BASE_DIR   := ../../../../examples/usb-cdcacm
+#LDSCRIPT   := $(BASE_DIR)/ld/linker.ld
+LDSCRIPT   := ../../../../sw/ld/linker.ld
+#LD_DIR     := $(BASE_DIR)/include/generated
+LD_DIR := ../../../../hw/build/software/include/generated
+ADD_CFLAGS := -I$(BASE_DIR)/include
+#ADD_CFLAGS := -I../include -I$(BASE_DIR)/include
+#ADD_LFLAGS := 
 PACKAGE    := bios
 else
 BASE_DIR   := .
@@ -52,6 +56,7 @@ endif
 LDSCRIPTS  := $(LDSCRIPT) $(LDREGIONS) $(LD_DIR)/output_format.ld
 SRC_DIR    := $(BASE_DIR)/src
 THIRD_PARTY := $(BASE_DIR)/third_party
+#THIRD_PARTY := ../../../../sw/third_party
 DBG_CFLAGS := -ggdb3 -DDEBUG -Wall
 DBG_LFLAGS := -ggdb3 -Wall
 CFLAGS     := $(ADD_CFLAGS) \
